@@ -2,7 +2,7 @@ package com.education.mosbach.sort.impl;
 
 import com.education.mosbach.sort.api.IntArraySorter;
 
-public class SectionSortImpl implements IntArraySorter {
+public class SelectionSortImpl implements IntArraySorter {
 
     public void swap (int[] A, int pos1, int pos2) {
         int temp = A[pos1];

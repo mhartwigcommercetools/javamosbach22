@@ -14,19 +14,18 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnitParamsRunner.class)
-public class TestSelectionSortImpl {
+public class TestQuickSortImpl {
 
-    // private BubbleSortImpl bubbleSort;    // against Implementation. WRONG
-    private IntArraySorter selectionSort;    // against Interface. CORRECT
+    private IntArraySorter quickSort;
 
     @Before
     public void before() {
-        selectionSort = new SelectionSortImpl();
+        quickSort = new QuickSortImpl();
     }
 
     @After
     public void after() {
-        selectionSort = null;
+        quickSort = null;
     }
 
     @Test
@@ -53,7 +52,7 @@ public class TestSelectionSortImpl {
                         .toArray();
         assertArrayEquals(
                 sortedArray,
-                selectionSort.sort(unSortedArray)
+                quickSort.sort(unSortedArray)
         );
     }
 
@@ -61,8 +60,8 @@ public class TestSelectionSortImpl {
     public void testSort_emptyList() {
         int[] emptyList = {};
         assertEquals(
-                emptyList,
-                selectionSort.sort(emptyList)
+                emptyList.length,
+                quickSort.sort(emptyList).length
         );
     }
 

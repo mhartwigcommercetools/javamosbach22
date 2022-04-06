@@ -32,14 +32,19 @@ public class QuickSortImpl implements IntArraySorter {
 
       public int[] sort(int[] unsorted) {
 
-          // in ArrayList umwandeln
+            ArrayList<Integer> unsortedAL = new ArrayList<>();
+            for (int e : unsorted)
+                unsortedAL.add(e);
 
-          // qsort call
+            ArrayList<Integer> sortedAL = qsort(unsortedAL);
 
-          // zurückwandeln
+            int[] sorted = new int[unsorted.length];
+            int i = 0;
+            for (Integer e : sortedAL)
+                sorted[i++] = e;
 
         return
-                unsorted;
+                sorted;
     }
 
 }
