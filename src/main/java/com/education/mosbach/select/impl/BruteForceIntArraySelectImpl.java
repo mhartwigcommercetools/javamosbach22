@@ -7,10 +7,10 @@ public class BruteForceIntArraySelectImpl implements IntArraySelecter {
     @Override
     public int select(int[] numbers, int place) {
         if (place > numbers.length || place < 1)
-            return
-                    0;
+            return 0;
         return
                 (new QuickSortImpl()
-                        .sort(numbers))[place-1];
+                        .sort(numbers)
+                )[place-1];
     }
 }
