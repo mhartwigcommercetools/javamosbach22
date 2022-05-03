@@ -62,6 +62,40 @@ public class TestSortedLinkedListImpl {
 
     }
 
+    @Test
+    @Parameters({
+            "1                  ,   4          , 1              , false",
+            "1-2-3              ,   6          , 1-2-3          , false",
+            "3-4-7-28           ,   3          , 4-7-28         , true",
+            "3-9-11-17          ,   11         , 3-9-17         , true",
+            "3-9-11-17          ,   17         , 3-9-11         , true"
+    })
+    public void testUnChain(String linkedList, int numberToUnChain, String newLinkedList, boolean found) {
+
+        int[] toLinkedList =
+                Arrays.stream(linkedList.split("-"))
+                        .map(Integer::valueOf)
+                        .mapToInt(Integer::intValue)
+                        .toArray();
+
+        for (int e : toLinkedList)
+            sortedLinkedList.chain(e);
+        boolean foundInList = sortedLinkedList.unchain(numberToUnChain);
+
+        int[] newLinkedListArray =
+                Arrays.stream(newLinkedList.split("-"))
+                        .map(Integer::valueOf)
+                        .mapToInt(Integer::intValue)
+                        .toArray();
+
+        for (int i = 0; i < newLinkedListArray.length; i++)
+            assertEquals(
+                    sortedLinkedList.getAllElements().get(i).intValue(),
+                    newLinkedListArray[i]
+            );
+        assertEquals(found, foundInList);
+
+    }
 
 
 }

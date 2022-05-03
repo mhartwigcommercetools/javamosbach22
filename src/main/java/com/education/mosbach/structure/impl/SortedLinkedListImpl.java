@@ -10,57 +10,66 @@ public class SortedLinkedListImpl implements LinkedList {
 
     private IntegerNode root = null;
 
+    public void chain_head(Integer element, IntegerNode next) {
+        root = new IntegerNode(element, next);
+    }
+
+    public void chain_next(IntegerNode nodeInChain, Integer element) {
+        nodeInChain.next =
+                new IntegerNode(element, nodeInChain.next);
+    }
+
+    public void unchain_head() {
+        if (root != null)
+            root = root.next;
+    }
+
+    public void unchain_next(IntegerNode nodeInChain) {
+        if (nodeInChain.next != null)
+            nodeInChain.next = nodeInChain.next.next;
+    }
+
     @Override
     public void chain(Integer element) {
-        // Alles leer
-        if (root == null) {
-            root = new IntegerNode(element, null);
+
+        if (root == null || root.content > element) {       // Alles leer oder es ist das neue root
+            chain_head(element, root);
+            return;
         }
+                                                            // Durchgehen, immer letztes merken
+        IntegerNode actual = root;
+        IntegerNode previous = null;
+        while (actual != null && actual.content <= element) {
+            previous = actual;
+            actual = actual.next;
+        }
+        chain_next(previous, element);
 
-        // Hat ein Element
-        else
-            if (root.next == null) {
-                if (root.content < element)
-                    root.next = new IntegerNode(element, null);
-                else
-                    root = new IntegerNode(element, root);
-            }
-
-            // Hat mindestens zwei Element
-            else {
-                    if (root.content > element)
-                        root = new IntegerNode(element, root);
-                    else {
-                        IntegerNode t = root;
-                        while (t.next !=null && t.next.content < element)
-                            t = t.next;
-                        IntegerNode p = t;
-                        p.next = new IntegerNode(element, t.next);
-                    }
-            }
     }
 
     @Override
     public boolean unchain(Integer element) {
 
-        /*
-        if (root == null) return false;
-
-        IntegerNode t = root;
-        IntegerNode p = null;
-        while (t != null OR t.content != element) {
-            p = t;
-            t = t.next;
-        }
-
-        if (t != null && t.content == element) {
-            p.next = t.next;
+        if (root != null && root.content == element) {
+            unchain_head();
             return true;
         }
-        else
 
-         */
-            return false;
+        IntegerNode actual = root;
+        IntegerNode previous = null;
+        while (actual != null) {
+            if (actual.content == element) {
+                unchain_next(previous);
+                return true;
+            }
+            else {
+                previous = actual;
+                actual = actual.next;
+            }
+        }
+        return false;
+
+
     }
 
     @Override
